@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import Grid from 'react-bootstrap/lib/Grid';
+import Row from 'react-bootstrap/lib/Row';
+import Col from 'react-bootstrap/lib/Col';
+import Button from 'react-bootstrap/lib/Button';
 
 function Square(props) {
   return (
@@ -24,8 +28,6 @@ class Square extends React.Component {
 
 class Board extends React.Component {
 
-
-
   renderSquare(i) {
     return (
       <Square
@@ -35,7 +37,6 @@ class Board extends React.Component {
   }
 
   render() {
-
     return (
       <div>
         <div className="board-row">
@@ -103,7 +104,7 @@ class Game extends React.Component {
       const desc = move ? "Go to move #" + move : "Go to game start";
       return (
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          <Button bsStyle="info" onClick={() => this.jumpTo(move)}>{desc}</Button>
         </li>
       )
     })
@@ -118,15 +119,42 @@ class Game extends React.Component {
 
     return (
       <div className="game">
-        <div className="game-board">
-          <Board
-            squares={current.squares}
-            onClick={(i) => this.handleClick(i)}/>
-        </div>
-        <div className="game-info">
-          <div>{status}</div>
-          <ol>{moves}</ol>
-        </div>
+        <Grid>
+          <Row>
+            <Col md={2}></Col>
+            <Col md={8}>
+              <header id="header">
+                <h1>The Reactive TicTacToe</h1>
+              </header>
+            </Col>
+            <Col md={2}></Col>
+          </Row>
+          <Row>
+            <Col md={4}></Col>
+            <Col md={4} mdOffset={2}>
+              <div className="game-board">
+                <div>{status}</div>
+                <br></br>
+                <Board
+                  squares={current.squares}
+                  onClick={(i) => this.handleClick(i)}/>
+              </div>
+            </Col>
+            <Col md={4}>
+              <div className="game-info">
+
+                <ol>{moves}</ol>
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={2}></Col>
+            <Col md={8}>
+
+            </Col>
+            <Col md={2}></Col>
+          </Row>
+        </Grid>
       </div>
     );
   }
@@ -151,8 +179,6 @@ function calculateWinner(squares) {
   }
   return null;
 }
-
-// ========================================
 
 ReactDOM.render(
   <Game />,
