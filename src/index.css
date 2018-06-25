@@ -5,12 +5,28 @@ body {
 }
 
 ol, ul {
-  padding-left: 30px;
+  /*padding-left: 30px;*/
 }
 
 #header {
   font-size: 40px "Century Gothic", Futura, sans-serif, bold;
   margin-bottom: 40px;
+}
+
+#moveBtn {
+  margin-top: 3px;
+  width: 200px;
+}
+
+#statusField {
+  border-style:groove;
+  border-color: #999;
+  background-color: #FF5733;
+  color:
+}
+
+#winnerField {
+  background-color: #43C0C0;
 }
 
 .board-row:after {

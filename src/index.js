@@ -5,6 +5,7 @@ import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
+import Jumbotron from 'react-bootstrap/lib/Jumbotron';
 
 function Square(props) {
   return (
@@ -59,6 +60,16 @@ class Board extends React.Component {
   }
 }
 
+class Player extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: null
+    };
+  }
+
+}
+
 class Game extends React.Component {
   constructor(props) {
     super(props);
@@ -104,17 +115,18 @@ class Game extends React.Component {
       const desc = move ? "Go to move #" + move : "Go to game start";
       return (
         <li key={move}>
-          <Button bsStyle="info" onClick={() => this.jumpTo(move)}>{desc}</Button>
+          <Button id="moveBtn" bsStyle="info" onClick={() => this.jumpTo(move)}>{desc}</Button>
         </li>
       )
     })
 
     let status;
+
     if(winner) {
-      status = "Winner: " + winner;
+      status = "Winner is player " + winner + "!!!";
     }
     else {
-      status = "Next player " + (this.state.xIsNext ? "X" : "O");
+      status = "Next player is: " + (this.state.xIsNext ? "X" : "O");
     }
 
     return (
@@ -130,11 +142,13 @@ class Game extends React.Component {
             <Col md={2}></Col>
           </Row>
           <Row>
-            <Col md={4}></Col>
+            <Col md={4}>
+              <Jumbotron id="statusField">
+                <h3>{status}</h3>
+              </Jumbotron>
+            </Col>
             <Col md={4} mdOffset={2}>
               <div className="game-board">
-                <div>{status}</div>
-                <br></br>
                 <Board
                   squares={current.squares}
                   onClick={(i) => this.handleClick(i)}/>
@@ -142,17 +156,15 @@ class Game extends React.Component {
             </Col>
             <Col md={4}>
               <div className="game-info">
-
                 <ol>{moves}</ol>
               </div>
             </Col>
           </Row>
           <Row>
-            <Col md={2}></Col>
-            <Col md={8}>
-
+            <Col md={4}>
             </Col>
-            <Col md={2}></Col>
+            <Col md={4}></Col>
+            <Col md={4}></Col>
           </Row>
         </Grid>
       </div>
